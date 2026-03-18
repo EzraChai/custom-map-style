@@ -1,17 +1,6 @@
 {
   "version": 8,
-  "metadata": {
-    "maputnik:renderer": "mlgljs"
-  },
   "sources": {
-    "ne2_shaded": {
-      "maxzoom": 6,
-      "tileSize": 256,
-      "tiles": [
-        "https://tiles.openfreemap.org/natural_earth/ne2sr/{z}/{x}/{y}.png"
-      ],
-      "type": "raster"
-    },
     "openmaptiles": {
       "type": "vector",
       "url": "https://tiles.openfreemap.org/planet"
@@ -24,127 +13,162 @@
       "id": "background",
       "type": "background",
       "paint": {
-        "background-color": "#F2F2F7"
+        "background-color": "#f2f2f7"
       }
     },
-    {
-      "id": "natural_earth",
-      "type": "raster",
-      "source": "ne2_shaded",
-      "maxzoom": 7,
-      "paint": {
-        "raster-opacity": [
-          "interpolate",
-          ["exponential", 1.5],
-          ["zoom"],
-          0,
-          0.4,
-          6,
-          0.05
-        ]
-      }
-    },
-    {
-      "id": "park",
-      "type": "fill",
-      "source": "openmaptiles",
-      "source-layer": "park",
-      "paint": {
-        "fill-color": "#D9F2D0",
-        "fill-opacity": 0.8
-      }
-    },
+
     {
       "id": "water",
       "type": "fill",
       "source": "openmaptiles",
       "source-layer": "water",
       "paint": {
-        "fill-color": "#A2D2FF"
+        "fill-color": "#d6e8ff"
       }
     },
+
     {
-      "id": "landuse_residential",
+      "id": "waterway",
+      "type": "line",
+      "source": "openmaptiles",
+      "source-layer": "waterway",
+      "paint": {
+        "line-color": "#c6dcff",
+        "line-width": [
+          "interpolate", ["linear"], ["zoom"],
+          8, 0.5,
+          16, 3
+        ]
+      }
+    },
+
+    {
+      "id": "park",
+      "type": "fill",
+      "source": "openmaptiles",
+      "source-layer": "park",
+      "paint": {
+        "fill-color": "#d4e9d7",
+        "fill-opacity": 0.6
+      }
+    },
+
+    {
+      "id": "landuse",
       "type": "fill",
       "source": "openmaptiles",
       "source-layer": "landuse",
-      "filter": ["==", ["get", "class"], "residential"],
       "paint": {
-        "fill-color": "#F0F0F0",
-        "fill-opacity": 0.5
+        "fill-color": "#ededf0"
       }
     },
+
     {
-      "id": "road_motorway_casing",
-      "type": "line",
+      "id": "landcover",
+      "type": "fill",
       "source": "openmaptiles",
-      "source-layer": "transportation",
-      "filter": ["==", ["get", "class"], "motorway"],
+      "source-layer": "landcover",
       "paint": {
-        "line-color": "rgba(213, 160, 89, 0.3)",
-        "line-width": ["interpolate", ["exponential", 1.2], ["zoom"], 12, 2, 18, 24]
+        "fill-color": "#dbeadf",
+        "fill-opacity": 0.3
       }
     },
+
     {
-      "id": "road_motorway_fill",
-      "type": "line",
+      "id": "building",
+      "type": "fill",
       "source": "openmaptiles",
-      "source-layer": "transportation",
-      "filter": ["==", ["get", "class"], "motorway"],
+      "source-layer": "building",
+      "minzoom": 14,
       "paint": {
-        "line-color": "#FFCC00",
-        "line-width": ["interpolate", ["exponential", 1.2], ["zoom"], 12, 1, 18, 20]
+        "fill-color": "#e5e5ea",
+        "fill-outline-color": "#d1d1d6"
       }
     },
+
     {
-      "id": "road_minor_casing",
-      "type": "line",
-      "source": "openmaptiles",
-      "source-layer": "transportation",
-      "filter": ["match", ["get", "class"], ["minor", "street", "service"], true, false],
-      "paint": {
-        "line-color": "#E5E5EA",
-        "line-width": ["interpolate", ["exponential", 1.2], ["zoom"], 14, 1.5, 20, 18]
-      }
-    },
-    {
-      "id": "road_minor_fill",
-      "type": "line",
-      "source": "openmaptiles",
-      "source-layer": "transportation",
-      "filter": ["match", ["get", "class"], ["minor", "street", "service"], true, false],
-      "paint": {
-        "line-color": "#FFFFFF",
-        "line-width": ["interpolate", ["exponential", 1.2], ["zoom"], 14, 0.5, 20, 16]
-      }
-    },
-    {
-      "id": "building_3d",
+      "id": "building-3d",
       "type": "fill-extrusion",
       "source": "openmaptiles",
       "source-layer": "building",
       "minzoom": 15,
       "paint": {
-        "fill-extrusion-color": "#E5E5EA",
+        "fill-extrusion-color": "#e5e5ea",
         "fill-extrusion-height": ["get", "render_height"],
         "fill-extrusion-base": ["get", "render_min_height"],
-        "fill-extrusion-opacity": 0.8
+        "fill-extrusion-opacity": 0.9
       }
     },
+
+    // ---- ROAD CASING (subtle gray) ----
     {
-      "id": "label_place",
-      "type": "symbol",
+      "id": "road-casing",
+      "type": "line",
       "source": "openmaptiles",
-      "source-layer": "place",
-      "layout": {
-        "text-field": "{name}",
-        "text-font": ["Noto Sans Regular"],
-        "text-size": ["interpolate", ["linear"], ["zoom"], 5, 10, 15, 18]
-      },
+      "source-layer": "transportation",
       "paint": {
-        "text-color": "#3A3A3C",
-        "text-halo-color": "#FFFFFF",
-        "text-halo-width": 2
+        "line-color": "#d1d1d6",
+        "line-width": [
+          "interpolate", ["linear"], ["zoom"],
+          10, 0.5,
+          16, 6
+        ]
+      }
+    },
+
+    // ---- ROAD FILL (white) ----
+    {
+      "id": "road",
+      "type": "line",
+      "source": "openmaptiles",
+      "source-layer": "transportation",
+      "paint": {
+        "line-color": "#ffffff",
+        "line-width": [
+          "interpolate", ["linear"], ["zoom"],
+          10, 0.3,
+          16, 4
+        ]
+      }
+    },
+
+    {
+      "id": "road-minor",
+      "type": "line",
+      "source": "openmaptiles",
+      "source-layer": "transportation",
+      "filter": ["==", ["get", "class"], "minor"],
+      "paint": {
+        "line-color": "#ffffff",
+        "line-width": [
+          "interpolate", ["linear"], ["zoom"],
+          12, 0.2,
+          16, 2
+        ]
+      }
+    },
+
+    {
+      "id": "path",
+      "type": "line",
+      "source": "openmaptiles",
+      "source-layer": "transportation",
+      "filter": ["in", ["get", "class"], ["literal", ["path", "pedestrian"]]],
+      "paint": {
+        "line-color": "#e5e5ea",
+        "line-dasharray": [1, 1],
+        "line-width": 1
+      }
+    },
+
+    {
+      "id": "boundary",
+      "type": "line",
+      "source": "openmaptiles",
+      "source-layer": "boundary",
+      "paint": {
+        "line-color": "#c7c7cc",
+        "line-width": 1
       }
     }
   ]
