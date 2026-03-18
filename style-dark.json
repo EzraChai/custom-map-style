@@ -99,21 +99,21 @@
               ]
             ]
           ],
-          "#005d5b",
+          "#00615b",
           ["==", ["get", "kind"], "wood"],
-          "#192a24",
+          "#00615b",
           ["in", ["get", "kind"], ["literal", ["scrub", "grassland", "grass"]]],
-          "#222323",
+          "#276450",
           ["==", ["get", "kind"], "glacier"],
           "#1c1c1c",
           ["==", ["get", "kind"], "sand"],
-          "#212123",
+          "#546152",
           [
             "in",
             ["get", "kind"],
             ["literal", ["military", "naval_base", "airfield"]]
           ],
-          "#222323",
+          "#34445b",
           "#1f1f1f"
         ]
       }
@@ -172,7 +172,7 @@
       "source": "protomaps",
       "source-layer": "landuse",
       "filter": ["in", "kind", "aerodrome"],
-      "paint": {"fill-color": "#1e1e1e"}
+      "paint": {"fill-color": "#314e76"}
     },
     {
       "id": "roads_runway",
@@ -250,7 +250,7 @@
       "minzoom": 9,
       "filter": ["in", "kind", "river"],
       "paint": {
-        "line-color": "#31353f",
+        "line-color": "#1c347a",
         "line-width": [
           "interpolate",
           ["exponential", 1.6],
@@ -263,14 +263,6 @@
           12
         ]
       }
-    },
-    {
-      "id": "landuse_pedestrian",
-      "type": "fill",
-      "source": "protomaps",
-      "source-layer": "landuse",
-      "filter": ["in", "kind", "pedestrian", "dam"],
-      "paint": {"fill-color": "#1e1e1e"}
     },
     {
       "id": "landuse_pier",
@@ -287,7 +279,7 @@
       "source-layer": "roads",
       "filter": ["all", ["has", "is_tunnel"], ["in", "kind", "other", "path"]],
       "paint": {
-        "line-color": "#141414",
+        "line-color": "#34445b",
         "line-gap-width": [
           "interpolate",
           ["exponential", 1.6],
@@ -445,7 +437,7 @@
       "source-layer": "roads",
       "filter": ["all", ["has", "is_tunnel"], ["in", "kind", "other", "path"]],
       "paint": {
-        "line-color": "#292929",
+        "line-color": "#34445b",
         "line-dasharray": [4.5, 0.5],
         "line-width": [
           "interpolate",
@@ -733,7 +725,7 @@
         ["!has", "is_link"]
       ],
       "paint": {
-        "line-color": "#1f1f1f",
+        "line-color": "#3d4d62",
         "line-gap-width": [
           "interpolate",
           ["exponential", 1.6],
@@ -790,7 +782,7 @@
       "source-layer": "roads",
       "filter": ["has", "is_link"],
       "paint": {
-        "line-color": "#3d3d3d",
+        "line-color": "rgba(114, 132, 158, 1)",
         "line-width": [
           "interpolate",
           ["exponential", 1.6],
@@ -1080,7 +1072,7 @@
       "minzoom": 12,
       "filter": ["all", ["has", "is_bridge"], ["has", "is_link"]],
       "paint": {
-        "line-color": "#1f1f1f",
+        "line-color": "#3d4d62",
         "line-gap-width": [
           "interpolate",
           ["exponential", 1.6],
@@ -1271,7 +1263,7 @@
         ["!has", "is_link"]
       ],
       "paint": {
-        "line-color": "#1f1f1f",
+        "line-color": "#3d4d62",
         "line-gap-width": [
           "interpolate",
           ["exponential", 1.6],
@@ -3569,7 +3561,7 @@
             ]
           ]
         ],
-        "text-size": ["interpolate", ["linear"], ["zoom"], 17, 10, 19, 16],
+        "text-size": ["interpolate", ["linear"], ["zoom"], 17, 11, 19, 16],
         "text-max-width": 8,
         "text-offset": [1.1, 0],
         "text-variable-anchor": ["left", "right"]
@@ -3620,7 +3612,7 @@
               ]
             ]
           ],
-          "#93939F",
+          "#aa8a76",
           [
             "in",
             ["get", "kind"],
