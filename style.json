@@ -1,109 +1,110 @@
 {
   "version": 8,
-  "name": "Apple-Style OpenFreeMap",
-  "metadata": { "openfreemap:theme": "light" },
+  "metadata": {"maputnik:renderer": "mlgljs"},
   "sources": {
-    "openfreemap": {
+    "ne2_shaded": {
+      "maxzoom": 6,
+      "tileSize": 256,
+      "tiles": ["https://tiles.openfreemap.org/natural_earth/ne2sr/{z}/{x}/{y}.png"],
+      "type": "raster"
+    },
+    "openmaptiles": {
       "type": "vector",
-      "url": "https://tiles.openfreemap.org/tiles.json"
+      "url": "https://tiles.openfreemap.org/planet"
     }
   },
-  "glyphs": "https://tiles.openfreemap.org/fonts/{fontstack}/{range}.pbf",
   "sprite": "https://tiles.openfreemap.org/sprites/ofm_f384/ofm",
+  "glyphs": "https://tiles.openfreemap.org/fonts/{fontstack}/{range}.pbf",
   "layers": [
     {
       "id": "background",
       "type": "background",
-      "paint": { "background-color": "#F9F7F2" }
+      "paint": {"background-color": "#F9F7F2"}
     },
     {
-      "id": "water",
-      "type": "fill",
-      "source": "openfreemap",
-      "source-layer": "water",
-      "paint": { "fill-color": "#A1D6F6" }
+      "id": "natural_earth",
+      "type": "raster",
+      "source": "ne2_shaded",
+      "maxzoom": 7,
+      "paint": {
+        "raster-opacity": ["interpolate", ["linear"], ["zoom"], 0, 0.4, 6, 0.05]
+      }
     },
     {
       "id": "park",
       "type": "fill",
-      "source": "openfreemap",
-      "source-layer": "landuse",
-      "filter": ["match", ["get", "class"], ["park", "forest", "grass"], true, false],
-      "paint": { "fill-color": "#D0E5C8", "fill-opacity": 0.8 }
-    },
-    {
-      "id": "road-casing-motorway",
-      "type": "line",
-      "source": "openfreemap",
-      "source-layer": "transportation",
-      "filter": ["==", "class", "motorway"],
+      "source": "openmaptiles",
+      "source-layer": "park",
       "paint": {
-        "line-color": "#D5A059",
-        "line-width": {
-          "stops": [
-            [12, 1.5],
-            [14, 5],
-            [18, 28]
-          ]
-        }
+        "fill-color": "#D0E5C8",
+        "fill-opacity": 0.6
       }
     },
     {
-      "id": "road-casing-minor",
+      "id": "water",
+      "type": "fill",
+      "source": "openmaptiles",
+      "source-layer": "water",
+      "paint": {"fill-color": "#A1D6F6"}
+    },
+    {
+      "id": "landuse_residential",
+      "type": "fill",
+      "source": "openmaptiles",
+      "source-layer": "landuse",
+      "filter": ["==", "class", "residential"],
+      "paint": {"fill-color": "#F2EFE9", "fill-opacity": 0.5}
+    },
+    {
+      "id": "road_motorway_casing",
       "type": "line",
-      "source": "openfreemap",
+      "source": "openmaptiles",
+      "source-layer": "transportation",
+      "filter": ["==", "class", "motorway"],
+      "paint": {
+        "line-color": "rgba(213, 160, 89, 0.3)",
+        "line-width": ["interpolate", ["exponential", 1.2], ["zoom"], 12, 2, 18, 26]
+      }
+    },
+    {
+      "id": "road_minor_casing",
+      "type": "line",
+      "source": "openmaptiles",
       "source-layer": "transportation",
       "filter": ["match", ["get", "class"], ["minor", "street", "service"], true, false],
       "paint": {
         "line-color": "#E5E5EA",
-        "line-width": {
-          "stops": [
-            [14, 1.5],
-            [16, 4],
-            [20, 20]
-          ]
-        }
+        "line-width": ["interpolate", ["exponential", 1.2], ["zoom"], 14, 1.5, 20, 20]
       }
     },
     {
-      "id": "road-fill-motorway",
+      "id": "road_motorway_fill",
       "type": "line",
-      "source": "openfreemap",
+      "source": "openmaptiles",
       "source-layer": "transportation",
       "filter": ["==", "class", "motorway"],
       "paint": {
         "line-color": "#F9D390",
-        "line-width": {
-          "stops": [
-            [12, 0.5],
-            [14, 3],
-            [18, 24]
-          ]
-        }
+        "line-width": ["interpolate", ["exponential", 1.2], ["zoom"], 12, 1, 18, 22]
       }
     },
     {
-      "id": "road-fill-minor",
+      "id": "road_minor_fill",
       "type": "line",
-      "source": "openfreemap",
+      "source": "openmaptiles",
       "source-layer": "transportation",
       "filter": ["match", ["get", "class"], ["minor", "street", "service"], true, false],
       "paint": {
         "line-color": "#FFFFFF",
-        "line-width": {
-          "stops": [
-            [14, 0.5],
-            [16, 3],
-            [20, 18]
-          ]
-        }
+        "line-width": ["interpolate", ["exponential", 1.2], ["zoom"], 14, 0.5, 20, 18]
       }
     },
     {
-      "id": "building-extrusion",
+      "id": "building-3d",
       "type": "fill-extrusion",
-      "source": "openfreemap",
+      "source": "openmaptiles",
       "source-layer": "building",
+      "minzoom": 15,
       "paint": {
         "fill-extrusion-color": "#EAE8E3",
         "fill-extrusion-height": ["get", "render_height"],
