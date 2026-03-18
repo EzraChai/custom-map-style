@@ -100,7 +100,6 @@
       }
     },
 
-    // ---- ROAD CASING (subtle gray) ----
     {
       "id": "road-casing",
       "type": "line",
@@ -116,7 +115,6 @@
       }
     },
 
-    // ---- ROAD FILL (white) ----
     {
       "id": "road",
       "type": "line",
