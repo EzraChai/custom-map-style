@@ -560,13 +560,6 @@
       }
     },
     {
-      "id": "buildings",
-      "type": "fill",
-      "source": "protomaps",
-      "source-layer": "buildings",
-      "paint": {"fill-color": "#cccccc", "fill-opacity": 0.5}
-    },
-    {
       "id": "roads_pier",
       "type": "line",
       "source": "protomaps",
